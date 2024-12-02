@@ -5,29 +5,43 @@ const client = new OpenAI({
 });
 
 const sendAnswer = async (req, res) => {
-  if (!req.data) {
-    return res.status(400).json({ error: "Forecast data is missing." });
-  }
+  console.log(req.data);
 
   try {
-    const createCompletion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an expert at transforming structured data into narrative responses for users.",
-        },
-        {
-          role: "user",
-          content: `Transform the following structured data into a narrative response, including the price of the product: ${JSON.stringify(
-            req.data,
-            null,
-            2
-          )}`,
-        },
-      ],
-    });
+    const createCompletion = req.data
+      ? await client.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are an expert at transforming structured data into narrative responses for users.",
+            },
+            {
+              role: "user",
+              content: `Transform the following structured data into a narrative response, including the price of the product: ${JSON.stringify(
+                req.data,
+                null,
+                2
+              )}`,
+            },
+          ],
+        })
+      : await client.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are an expert at generate narrative responses to send user an error message to warn about faulty data.",
+            },
+            {
+              role: "user",
+              content:
+                "Your message is not compatible with the purpose of this application.",
+            },
+          ],
+        });
 
     const answer = createCompletion.choices[0].message.content;
 

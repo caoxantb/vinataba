@@ -5,10 +5,7 @@ import sendPredictiveModel from "../middlewares/sendPredictiveModel.js";
 import { Message } from "../models/index.js";
 
 export const createMessage = async (req, res, next) => {
-  console.log(req.body);
   const { text } = req.body;
-
-  console.log(text);
 
   const newMessage = new Message({
     text,
@@ -27,6 +24,5 @@ export const createMessage = async (req, res, next) => {
   });
   await Message.create(llmMessage);
 
-  console.log(req.answer);
   res.status(201).json(llmMessage);
 };

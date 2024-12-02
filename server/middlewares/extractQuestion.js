@@ -8,8 +8,6 @@ const extractQuestion = (req, res) => {
   }
 
   req.question = text;
-
-  console.log("here", req.question);
 };
 
 export default extractQuestion;

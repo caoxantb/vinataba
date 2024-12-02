@@ -38,13 +38,12 @@ export default function ChatboxDetail() {
     setData([
       { sendBy: "llm", timestamp: new Date().toISOString(), text: res.text },
       { sendBy: "user", timestamp: new Date().toISOString(), text: newMessage },
-      ...data.slice(1),
+      ...data,
     ]);
   };
 
   const handleChange = (event) => {
     setText(event.target.value);
-    console.log("Text changed to:", event.target.value);
   };
 
   return (

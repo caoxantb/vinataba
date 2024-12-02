@@ -15,8 +15,7 @@ const sendPredictiveModel = async (req, res) => {
 
     req.data = data;
   } catch (error) {
-    console.error("Error fetching forecast data:", error.message);
-    return res.status(500).json({ error: "Failed to fetch forecast data." });
+    req.data = undefined;
   }
 };
 
