@@ -1,91 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, TextField, Button, Typography, useTheme } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { createMessage } from "../../services/message";
 
 export default function ChatboxDetail() {
   const theme = useTheme();
-  const [data, setData] = useState([
-    {
-      sendBy: "user",
-      timestamp: "timestamp",
-      text: "This is a box with text inside. This is a box with text inside.",
-    },
-    {
-      sendBy: "llm",
-      timestamp: "timestamp",
-      text: "This is a box with text inside.",
-    },
-    {
-      sendBy: "user",
-      timestamp: "timestamp",
-      text: "This is a box with text inside. This is a box with text inside.",
-    },
-    {
-      sendBy: "llm",
-      timestamp: "timestamp",
-      text: "This is a box with text inside.",
-    },
-    {
-      sendBy: "user",
-      timestamp: "timestamp",
-      text: "This is a box with text inside. This is a box with text inside.",
-    },
-    {
-      sendBy: "llm",
-      timestamp: "timestamp",
-      text: "This is a box with text inside.",
-    },
-    {
-      sendBy: "user",
-      timestamp: "timestamp",
-      text: "This is a box with text inside. This is a box with text inside.",
-    },
-    {
-      sendBy: "llm",
-      timestamp: "timestamp",
-      text: "This is a box with text inside.",
-    },
-    {
-      sendBy: "user",
-      timestamp: "timestamp",
-      text: "This is a box with text inside. This is a box with text inside.",
-    },
-    {
-      sendBy: "llm",
-      timestamp: "timestamp",
-      text: "This is a box with text inside.",
-    },
-    {
-      sendBy: "user",
-      timestamp: "timestamp",
-      text: "This is a box with text inside. This is a box with text inside.",
-    },
-    {
-      sendBy: "llm",
-      timestamp: "timestamp",
-      text: "This is a box with text inside.",
-    },
-    {
-      sendBy: "user",
-      timestamp: "timestamp",
-      text: "This is a box with text inside. This is a box with text inside.",
-    },
-    {
-      sendBy: "llm",
-      timestamp: "timestamp",
-      text: "This is a box with text inside.",
-    },
-    {
-      sendBy: "user",
-      timestamp: "timestamp",
-      text: "This is a box with text inside. This is a box with text inside.",
-    },
-    {
-      sendBy: "llm",
-      timestamp: "timestamp",
-      text: "This is a box with text inside.",
-    },
-  ]);
+  const [data, setData] = useState([]);
   const [text, setText] = useState("");
 
   const isDarkMode = theme.palette.mode === "dark";
@@ -96,12 +16,30 @@ export default function ChatboxDetail() {
     ? theme.palette.text.primary
     : theme.palette.text.secondary;
 
-  const sendMessage = (newMessage) => {
+  const sendMessage = async (newMessage) => {
     setData([
       { sendBy: "user", timestamp: new Date().toISOString(), text: newMessage },
       ...data,
     ]);
     setText("");
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setData([
+      {
+        sendBy: "llm",
+        timestamp: new Date().toISOString(),
+        text: "Loading...",
+      },
+      { sendBy: "user", timestamp: new Date().toISOString(), text: newMessage },
+      ...data,
+    ]);
+
+    const res = await createMessage(newMessage);
+
+    setData([
+      { sendBy: "llm", timestamp: new Date().toISOString(), text: res.text },
+      { sendBy: "user", timestamp: new Date().toISOString(), text: newMessage },
+      ...data.slice(1),
+    ]);
   };
 
   const handleChange = (event) => {
@@ -163,7 +101,7 @@ export default function ChatboxDetail() {
           <TextField
             fullWidth
             id="outlined-multiline-flexible fullWidth"
-            label="Multiline"
+            label="Add your prompt text here"
             multiline
             maxRows={4}
             value={text}

@@ -19,12 +19,36 @@ export default function App() {
   const NAVIGATION = [
     {
       kind: "header",
-      title: "Main items",
+      title: "Dashboard",
     },
     {
       segment: "newsletter",
       title: "Newsletter",
       icon: <DashboardIcon />,
+    },
+    {
+      segment: "analytics",
+      title: "Analytics",
+      icon: <BarChartIcon />,
+      children: [
+        {
+          segment: "sales",
+          title: "Price Trends Visualization",
+          icon: <DescriptionIcon />,
+        },
+        {
+          segment: "traffic",
+          title: "Global Market Overview",
+          icon: <DescriptionIcon />,
+        },
+      ],
+    },
+    {
+      kind: "divider",
+    },
+    {
+      kind: "header",
+      title: "Chatbot",
     },
     {
       segment: "chatbot",
@@ -39,34 +63,10 @@ export default function App() {
         ...CHATBOX_NAVIGATION,
       ],
     },
-    {
-      kind: "divider",
-    },
-    {
-      kind: "header",
-      title: "Analytics",
-    },
-    {
-      segment: "analytics",
-      title: "Analytics",
-      icon: <BarChartIcon />,
-      children: [
-        {
-          segment: "sales",
-          title: "Sales",
-          icon: <DescriptionIcon />,
-        },
-        {
-          segment: "traffic",
-          title: "Traffic",
-          icon: <DescriptionIcon />,
-        },
-      ],
-    },
   ];
 
   const BRANDING = {
-    title: "VINATABA APPLICATION",
+    title: "VINAFARM APPLICATION",
   };
 
   return (

@@ -39,6 +39,12 @@ const router = createBrowserRouter([
           {
             path: "analytics",
             Component: Analytics,
+            children: [
+              {
+                path: ":id",
+                Component: Analytics,
+              },
+            ],
           },
         ],
       },
