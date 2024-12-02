@@ -1,4 +1,4 @@
-import Chat from "./chat.js";
-import Message from "./message.js";
+import Chat from "./chatModel.js";
+import Message from "./messageModel.js";
 
-export default { Chat, Message };
+export { Chat, Message };

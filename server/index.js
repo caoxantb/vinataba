@@ -6,7 +6,6 @@ import { connectDatabase } from "./db/connection.js";
 
 dotenv.config();
 
-
 const initServer = async () => {
   const server = http.createServer(app);
   const PORT = process.env.PORT || 3000;
@@ -16,5 +15,6 @@ const initServer = async () => {
 
   await connectDatabase();
   // await openAIMain();
-}
+};
+
 initServer();

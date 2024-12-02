@@ -1,17 +1,13 @@
-import Chat from '../models/chatModel.js';
+import { Chat } from "../models/index.js";
 
 export const getAllChat = async (req, res) => {
-  try {
-    const chats = await Chat.find();
-    res.status(200).json(chats);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch chats" });
-  }
+  const chats = await Chat.find().populate("messages");
+  res.status(200).json(chats);
 };
 
 export const getChatByID = async (req, res) => {
   try {
-    const chat = await Chat.findById(req.params.id);
+    const chat = await Chat.findById(req.params.id).populate("messages");
     if (!chat) {
       return res.status(404).json({ error: "Chat not found" });
     }
