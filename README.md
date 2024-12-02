@@ -11,6 +11,7 @@ VinaFarm ChatBot is a chat application designed specifically for Finland farmers
 - Developed as a **robust web application** for seamless user experience.
 
 ## Architecture
+![vinfarm_background](https://github.com/user-attachments/assets/3d85806e-9253-4d7b-91c5-95a410adabc0)
 
 ## Requirements
 
@@ -123,3 +124,6 @@ Follow the steps below to set up and deploy the VinaFarm ChatBot:
      pnpm install
      pnpm dev
      ```
+
+   The application now can be accessed at http://localhost:5173/
+   
